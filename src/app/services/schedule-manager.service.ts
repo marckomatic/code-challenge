@@ -1,9 +1,8 @@
 /**
  * This service contains all the challenge logic, it's injected on main view component,
- * that is app component.
+ * that is app-component.
  */
 import { Injectable } from '@angular/core';
-import { CollaboratorSchedule } from '../models/ColaboratorSchedule';
 
 /*These const contains the possible values for 
   * config the individual interval time to use in the schedule.
@@ -36,16 +35,28 @@ export class ScheduleManagerService {
    * I know that the challenge said that I just have to return the times, but I think is more useful if 
    * it returns the collabs that are free in this time too.
    * 
-   * @param collaboratorsSchedule an array of type CollaboratorSchedule, each element contains the 
-   * collaborator and the busy times.
+   * @param collaboratorsSchedule an array of type any, each element contains the 
+   * collaborator and the busy times in the above format: 
+   * {
+   *    'collabName': string, 
+   *    'busyTimes': string[]
+   * }
    * @returns an array with the times in that more than three collaborators are free in JSON format.
    */
-  public getFreeCollaboratorsSchedule(collaboratorsSchedule:CollaboratorSchedule[]):string{
-    let scheduleTimesWithFreeCollaborators:any[] = [];
+  public getFreeCollaboratorsSchedule(collaboratorsSchedule:any[]):string{
+    //coverting the collaborators busyTimes array into a map to reduce search times
+    for(let collaborator of collaboratorsSchedule){
+      collaborator.busyTimesMap = collaborator.busyTimes.reduce((map:Map<string, boolean>, value:string)=>{
+        map.set(value, true); 
+      })
+    }
+
     /** 
      * Filling the array of times with the available time labels in this schedule, at the start,
      * each time interval does't have any collaborator free.
      */
+    let scheduleTimesWithFreeCollaborators:any[] = [];
+
     this.config.scheduleTimeLabels.forEach(
       (timeLabel)=>{
         //Creating an object to store the free collaborator in this time label.
@@ -55,21 +66,21 @@ export class ScheduleManagerService {
         };
         //Pushing collaborators that are free in this time interval.
         for(let collaborator of collaboratorsSchedule){
-          let collaboratorIsFree = !collaborator.busyTimes.includes(timeLabel);
-          
+          let collaboratorIsFree = !collaborator.busyTimesMap.has(timeLabel);
+
           if(collaboratorIsFree){
             timeIntervalWithCollaborators.freeColaborators.push(collaborator.collabName);
           }
         }
 
-        let haveAtLeastThreeCollaborators = timeIntervalWithCollaborators.freeColaborators.length > 2;
+        let haveAtLeastThreeFreeCollaborators = timeIntervalWithCollaborators.freeColaborators.length > 2;
         
-        if(haveAtLeastThreeCollaborators){
+        if(haveAtLeastThreeFreeCollaborators){
           scheduleTimesWithFreeCollaborators.push(timeIntervalWithCollaborators);
         }
       }
     );
-
+    
     return JSON.stringify(collaboratorsSchedule);
   }
 
