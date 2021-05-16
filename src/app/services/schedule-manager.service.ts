@@ -106,12 +106,12 @@ export class ScheduleManagerService {
     for (let i = startHourTime; i < endHourTime; i++) {
 
       let tag = i < 12? 'AM': 'PM';
-      let stringHour = (i<12?(i%13):(i%13+1));      
+      let stringHour = (i<13?(i%13):(i%13+1));      
       if (intervalDuration == HALF_AN_HOUR) {
         timeLabels.push(stringHour + ":00 " + tag);
-        timeLabels.push(stringHour + ":30 " + " " + tag)
+        timeLabels.push(stringHour + ":30 " + tag)
       } else if (intervalDuration == HOUR) {
-        timeLabels.push((stringHour+1) + ":00 " + tag);
+        timeLabels.push((stringHour) + ":00 " + tag);
       } else {
         return false;
       }

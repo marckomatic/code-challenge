@@ -46,8 +46,32 @@ export class DailyPlannerComponent implements OnInit {
     this.officeHours = this._scheduleManager.getTimeLabels();
   }
 
-  collaboratorIsBusyAtThisTime(collaborator:CollaboratorSchedule, time:string){
-    return (collaborator.busyTimes as string[]).includes(time)? '#C2185B': 'white';
+  colorTimeCell(collaborator:CollaboratorSchedule, time:string){
+    return this.collaboratorIsBusyAtThisTime(collaborator, time)? '#C2185B': 'white';
   }
   
+  addBusyTime(collaborator:CollaboratorSchedule, time:string){
+    let containsThisTimes = false;
+    let index = 0;
+    for(index=0; index < (collaborator.busyTimes as string[]).length;  index++){
+      containsThisTimes = (collaborator.busyTimes as string[])[index] == time? true: false;
+      if(containsThisTimes){
+        break;
+      }
+    }
+    if(containsThisTimes){
+      (collaborator.busyTimes as string[]).splice(index, 1);
+    }else{
+      (collaborator.busyTimes as string[]).push(time);
+    }
+  }
+
+  collaboratorIsBusyAtThisTime(collaborator: CollaboratorSchedule, time:string){
+    for(let element of collaborator.busyTimes){
+      if(element == time){
+        return true;
+      }
+    }
+    return false; 
+  }  
 }

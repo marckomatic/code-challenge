@@ -1,16 +1,20 @@
+/*TOOL BAR FOR */
 #planner-toolbar{
     margin: 0px auto;
     width: 80%;
-    height: 60px;
     margin-top: 5%;
     background-color: #18c27f;
     border: 2px solid #18c27f;
     border-radius: 5px 5px 0px 0px;
-    display: flex;
-    justify-content: center;
-    align-content: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
     padding-left: 10px;
     padding-right: 10px;
+    display: flex;
+}
+
+.toolbar-spacer {
+    flex: 1 1 auto;
 }
 
 #planner-container{
@@ -21,6 +25,7 @@
     height: 70%;
     overflow-y: scroll;
     padding: 10px;
+    padding-top: 5px;
 }   
 
 table{
@@ -29,8 +34,12 @@ table{
 }
 
 .th-for-collabs{
+    font-family: 'Krub', "Helvetica Neue", sans-serif;
     background-color: #C2185B;
     color: white;
+    height: 50px;
+    border-right: 1px solid #ee6ea1 ;
+    border-bottom: 1px solid #ee6ea1 ;
 }
 
 .thin-cell-width{
@@ -51,5 +60,9 @@ table{
 .planner-cells:hover{
     cursor: pointer;
     background: #ee6ea1 !important;
+}
 
+.planner-cells:active{
+    cursor: pointer;
+    background: #C2185B !important;
 }
