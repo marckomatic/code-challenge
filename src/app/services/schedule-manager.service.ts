@@ -66,7 +66,7 @@ export class ScheduleManagerService {
 
         //Pushing collaborators that are free in this time interval.
         for (let collaborator of collaboratorsSchedule) {
-          //This variable looks at the Set of the collaborator (the Set created a few lines above)
+          //This variable looks at the busyTimes Set of the collaborator (the Set created a few lines above)
           //and if the time is not in this busyTimes set, the collaborator is free at this time
           let collaboratorIsFree = !(collaborator.busyTimes as Set<string>).has(timeLabel);
           if (collaboratorIsFree) {
@@ -80,7 +80,7 @@ export class ScheduleManagerService {
         }
       }
     );
-    return JSON.stringify(collaboratorsSchedule);
+    return JSON.stringify(scheduleTimesWithFreeCollaborators);
   }
 
   /**

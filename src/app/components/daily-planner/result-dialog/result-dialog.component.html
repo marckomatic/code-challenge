@@ -1,1 +1,18 @@
-<p>result-dialog works!</p>
+<h1 mat-dialog-title>Result</h1>
+
+<div mat-dialog-content class="container">
+  <mat-form-field class="input" appearance="fill">
+    <mat-label>Input</mat-label>
+    <textarea matInput [(ngModel)]="data.input" readonly></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="input" appearance="fill">
+    <mat-label>Output</mat-label>
+    <textarea matInput readonly>{{data.output}}</textarea>
+  </mat-form-field>
+</div>
+
+
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data.output" cdkFocusInitial>Ok</button>
+</div>

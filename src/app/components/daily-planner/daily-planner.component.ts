@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CollaboratorSchedule } from 'src/app/models/CollaboratorSchedule';
 import { ScheduleManagerService, defineTimeLabels } from 'src/app/services/schedule-manager.service';
+import { ResultDialogComponent } from './result-dialog/result-dialog.component';
 
 @Component({
   selector: 'app-daily-planner',
@@ -39,12 +41,34 @@ export class DailyPlannerComponent implements OnInit {
     }
   ]
 
-  constructor(private _scheduleManager: ScheduleManagerService) {
+  constructor(private _scheduleManager: ScheduleManagerService, public dialog:MatDialog) {
   }
 
   ngOnInit(): void {
     this.officeHours = Array.from(this._scheduleManager.getTimeLabels())
   }
+
+  /**
+   * Shows a dialogue with the input and the output of the challenge.
+   */
+  runChallenge(){
+    let input:string = JSON.stringify(this.collaborators);
+    let output:string = this._scheduleManager.getFreeCollaboratorsSchedule(this.collaborators);
+
+    this.turnbackBusyTimesToArray();
+    const dialogRef = this.dialog.open(ResultDialogComponent, {
+      width: '80%',
+      data: {
+        input: input.split("},").join("},\n"),
+        output: output.split("},").join("},\n")
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
+  }
+
   /**
    * Add a busy time to the collaborator in an specified time
    * if it is busy, then it turns into an available time.
@@ -86,5 +110,10 @@ export class DailyPlannerComponent implements OnInit {
     return (collaborator.busyTimes as string[]).includes(time) ? '#C2185B' : 'white';
   }
 
+  turnbackBusyTimesToArray(){
+    for(let colaborator of this.collaborators){
+      colaborator.busyTimes = Array.from(colaborator.busyTimes);
+    }
+  }
   
 }
