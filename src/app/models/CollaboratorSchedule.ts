@@ -1,6 +1,6 @@
 export class CollaboratorSchedule{
     name: string;
-    busyTimes: string[] | Map<string, boolean>;
+    busyTimes: string[] | Set<string>;
 
     /**
      * @param name of the collaborator

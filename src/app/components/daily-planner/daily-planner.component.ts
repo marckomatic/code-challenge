@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CollaboratorSchedule } from 'src/app/models/CollaboratorSchedule';
-import { HALF_AN_HOUR, ScheduleManagerService } from 'src/app/services/schedule-manager.service';
+import { ScheduleManagerService, defineTimeLabels } from 'src/app/services/schedule-manager.service';
 
 @Component({
   selector: 'app-daily-planner',
@@ -8,8 +8,10 @@ import { HALF_AN_HOUR, ScheduleManagerService } from 'src/app/services/schedule-
   styleUrls: ['./daily-planner.component.css']
 })
 export class DailyPlannerComponent implements OnInit {
-  officeHours:string[] = [] as string[];
-
+  //Labels for office hours time intervals 
+  officeHours: string[] = [] as string[];
+  lunchHours: string[] = [] as string[];
+  //All the collaborators with their busy times, it is binded to the table in view.
   collaborators: CollaboratorSchedule[] = [
     {
       name: "Kyle",
@@ -37,41 +39,52 @@ export class DailyPlannerComponent implements OnInit {
     }
   ]
 
-  constructor(private _scheduleManager:ScheduleManagerService) {
-    this._scheduleManager = new ScheduleManagerService();
-    this._scheduleManager.configureTimeLabels(8, 17, HALF_AN_HOUR);
+  constructor(private _scheduleManager: ScheduleManagerService) {
   }
 
   ngOnInit(): void {
-    this.officeHours = this._scheduleManager.getTimeLabels();
+    this.officeHours = Array.from(this._scheduleManager.getTimeLabels())
   }
-
-  colorTimeCell(collaborator:CollaboratorSchedule, time:string){
-    return this.collaboratorIsBusyAtThisTime(collaborator, time)? '#C2185B': 'white';
-  }
-  
-  addBusyTime(collaborator:CollaboratorSchedule, time:string){
+  /**
+   * Add a busy time to the collaborator in an specified time
+   * if it is busy, then it turns into an available time.
+   * @param collaborator collaborator schedule info
+   * @param time time label that we are looking for
+   */
+  addBusyTime(collaborator: CollaboratorSchedule, time: string):void {
+    
+    //If the time interval is a lunch time interval, it can't be converted into a busy time.
+    if(this._scheduleManager.itIsALunchTimeInterval(time)){
+      return;
+    } 
     let containsThisTimes = false;
     let index = 0;
-    for(index=0; index < (collaborator.busyTimes as string[]).length;  index++){
-      containsThisTimes = (collaborator.busyTimes as string[])[index] == time? true: false;
-      if(containsThisTimes){
+    for (index = 0; index < (collaborator.busyTimes as string[]).length; index++) {
+      containsThisTimes = (collaborator.busyTimes as string[])[index] == time ? true : false;
+      if (containsThisTimes) {
         break;
       }
     }
-    if(containsThisTimes){
+    if (containsThisTimes) {
       (collaborator.busyTimes as string[]).splice(index, 1);
-    }else{
+    } else {
       (collaborator.busyTimes as string[]).push(time);
     }
   }
 
-  collaboratorIsBusyAtThisTime(collaborator: CollaboratorSchedule, time:string){
-    for(let element of collaborator.busyTimes){
-      if(element == time){
-        return true;
-      }
+  /**
+  * Return a color to apply to the time cell in the table, depending on if the 
+  * collaborator is available or not in the time interval, or if it's a lunch time interval.
+  * @param collaborator collaborator schedule info
+  * @param time time in that we are looking if collab is available
+  * @returns a color in string format for the cell.
+  */
+  colorTimeCell(collaborator: CollaboratorSchedule, time: string) {
+    if(this._scheduleManager.itIsALunchTimeInterval(time)){
+      return '#b0c218'
     }
-    return false; 
-  }  
+    return (collaborator.busyTimes as string[]).includes(time) ? '#C2185B' : 'white';
+  }
+
+  
 }

@@ -7,12 +7,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './modules/material/material.module';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { DailyPlannerComponent } from './components/daily-planner/daily-planner.component';
+import { ResultDialogComponent } from './components/daily-planner/result-dialog/result-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToolbarComponent,
-    DailyPlannerComponent
+    DailyPlannerComponent,
+    ResultDialogComponent
   ],
   imports: [
     BrowserModule,
