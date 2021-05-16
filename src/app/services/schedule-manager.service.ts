@@ -3,6 +3,7 @@
  * that is app-component.
  */
 import { Injectable } from '@angular/core';
+import { CollaboratorSchedule } from '../models/CollaboratorSchedule';
 
 /*These const contains the possible values for 
   * config the individual interval time to use in the schedule.
@@ -36,19 +37,18 @@ export class ScheduleManagerService {
    * it returns the collabs that are free in this time too.
    * 
    * @param collaboratorsSchedule an array of type any, each element contains the 
-   * collaborator and the busy times in the above format: 
-   * {
-   *    'collabName': string, 
-   *    'busyTimes': string[]
-   * }
+   * collaborator name and an array of busy times. 
    * @returns an array with the times in that more than three collaborators are free in JSON format.
    */
-  public getFreeCollaboratorsSchedule(collaboratorsSchedule:any[]):string{
+  public getFreeCollaboratorsSchedule(collaboratorsSchedule:CollaboratorSchedule[]):string{
     //coverting the collaborators busyTimes array into a map to reduce search times
     for(let collaborator of collaboratorsSchedule){
-      collaborator.busyTimesMap = collaborator.busyTimes.reduce((map:Map<string, boolean>, value:string)=>{
-        map.set(value, true); 
-      })
+      let busyTimesMap: Map<string, boolean> = new Map();
+
+      for(let timeInterval of collaborator.busyTimes){
+        busyTimesMap.set(timeInterval as string, true); 
+      }
+      collaborator.busyTimes = busyTimesMap;
     }
 
     /** 
@@ -66,10 +66,10 @@ export class ScheduleManagerService {
         };
         //Pushing collaborators that are free in this time interval.
         for(let collaborator of collaboratorsSchedule){
-          let collaboratorIsFree = !collaborator.busyTimesMap.has(timeLabel);
+          let collaboratorIsFree = !(collaborator.busyTimes as Map<string, boolean>).has(timeLabel);
 
           if(collaboratorIsFree){
-            timeIntervalWithCollaborators.freeColaborators.push(collaborator.collabName);
+            timeIntervalWithCollaborators.freeColaborators.push(collaborator.name);
           }
         }
 
@@ -80,7 +80,7 @@ export class ScheduleManagerService {
         }
       }
     );
-    
+
     return JSON.stringify(collaboratorsSchedule);
   }
 
@@ -105,12 +105,13 @@ export class ScheduleManagerService {
     let timeLabels: string[] = [];
     for (let i = startHourTime; i < endHourTime; i++) {
 
-      let tag = i < 13? 'AM': 'PM';
+      let tag = i < 12? 'AM': 'PM';
+      let stringHour = (i<12?(i%13):(i%13+1));      
       if (intervalDuration == HALF_AN_HOUR) {
-        timeLabels.push((i%13) + ":00 " + tag);
-        timeLabels.push((i%13) + ":30 " + " " + tag)
+        timeLabels.push(stringHour + ":00 " + tag);
+        timeLabels.push(stringHour + ":30 " + " " + tag)
       } else if (intervalDuration == HOUR) {
-        timeLabels.push((i%13) + ":00 " + tag);
+        timeLabels.push((stringHour+1) + ":00 " + tag);
       } else {
         return false;
       }

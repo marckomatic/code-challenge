@@ -1,0 +1,39 @@
+<div id="planner-toolbar">
+    <mat-button-toggle-group name="interval-duration" aria-label="Font Style" color="primary">
+        <mat-button-toggle  value="" matTooltip='Meet duration of half an hour'>Half an Hour</mat-button-toggle>
+        <mat-button-toggle value="" matTooltip="Meet duration of an hour">Hour</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <mat-button-toggle-group name="period" aria-label="Font Style" color="primary">
+        <mat-button-toggle value="" matTooltip='Take into account only office hours'>Office Hours</mat-button-toggle>
+        <mat-button-toggle value="" matTooltip='Take into account all day hours'>All Day</mat-button-toggle>
+    </mat-button-toggle-group>
+    
+    <button mat-icon-button class="example-icon" aria-label="Profile Icon" matTooltip='Add collaborator'>
+        <mat-icon>person_add</mat-icon>
+    </button>
+
+    <button mat-icon-button class="example-icon" aria-label="Profile Icon" matTooltip='Remove Collaborator'>
+        <mat-icon>person_remove</mat-icon>
+    </button>
+
+    <button mat-icon-button class="example-icon" aria-label="Profile Icon" matTooltip='Schedule settings'>
+        <mat-icon>settings</mat-icon>
+    </button>
+
+
+</div>
+<div id="planner-container">
+    <table>
+        <tr>
+            <th ></th>
+            <th *ngFor="let collaborator of collaborators" class="th-for-collabs">{{collaborator.name}}</th>
+        </tr>
+        <tr *ngFor="let timeLabel of officeHours" >
+            <td class="thin-cell-width">{{timeLabel}}</td>
+            <td class="planner-cells" *ngFor="let collaborator of collaborators" [style.background]="collaboratorIsBusyAtThisTime(collaborator, timeLabel)">
+                
+            </td>
+        </tr>
+    </table>
+</div>
