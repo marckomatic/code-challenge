@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Remove Collaborator</h1>
+<div mat-dialog-content>
+  <p>Which collaborator do you want to remove?</p>
+  <mat-card *ngFor="let collaborator of collabBackup" class="card-element">{{collaborator.name}}
+    <span class="toolbar-spacer"></span>
+    <button mat-icon-button class="example-icon" aria-label="Add Collab" matTooltip='Remove Collaborator' color="primary">
+        <mat-icon (click)="removePerson(collaborator.name)">delete</mat-icon>
+    </button>
+  </mat-card>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="collabBackup">Ok</button>
+</div>

@@ -1,13 +1,15 @@
 <div id="planner-toolbar">
-    <button mat-icon-button class="example-icon" aria-label="Profile Icon" matTooltip='Add collaborator'>
+    <button mat-icon-button class="example-icon" aria-label="Add Collab" matTooltip='Add collaborator' 
+        color="primary" (click)="addCollaborator()">
         <mat-icon>person_add</mat-icon>
     </button>
 
-    <button mat-icon-button class="example-icon" aria-label="Profile Icon" matTooltip='Remove Collaborator'>
+    <button mat-icon-button class="example-icon" aria-label="Add Collab" matTooltip='Remove Collaborator' 
+        color="primary" (click)="removeCollaborator()">
         <mat-icon>person_remove</mat-icon>
     </button>
 
-    <button mat-icon-button class="example-icon" aria-label="Profile Icon" matTooltip='Schedule settings'>
+    <button mat-icon-button class="example-icon" aria-label="Add Collab" matTooltip='Schedule settings' color="primary">
         <mat-icon>settings</mat-icon>
     </button>
 
@@ -17,6 +19,24 @@
 </div>
 
 <div id="planner-container">
+    <div class="information">
+        <div class="info-element" >
+            <div class="color-block" style="background-color: #C2185B !important; border: 1px solid #ccc;"></div>
+            <label>Meet Time</label>
+        </div>
+
+        <div class="info-element">
+            <div class="color-block" style="background-color: white !important; border: 1px solid #ccc"></div>
+            <label>Available Time</label>
+        </div>
+
+        <div class="info-element">
+            <div class="color-block" style="background-color: #B0C218 !important; border: 1px solid #ccc;"></div>
+            <label>Lunch Time</label>
+        </div>
+        
+    </div>
+
     <table>
         <tr>
             <th ></th>

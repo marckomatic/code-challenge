@@ -1,1 +1,13 @@
-<p>add-collab-dialog works!</p>
+<h1 mat-dialog-title>Add Collaborator</h1>
+<div mat-dialog-content>
+  <p>Type the name of the new collaborator.</p>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="name" (ngModelChange)="verifyName()">
+  </mat-form-field>
+  <label style="color: rgb(255, 55, 55); margin-left: 5px;" *ngIf="error">Collaborator already exists.</label>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="name">Add</button>
+</div>

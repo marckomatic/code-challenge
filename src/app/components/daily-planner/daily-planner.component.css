@@ -1,4 +1,8 @@
-/*TOOL BAR FOR */
+
+/*
+ ************************************PLANNER TOOLBAR STYLES************************************************
+ */
+
 #planner-toolbar{
     margin: 0px auto;
     width: 80%;
@@ -27,6 +31,29 @@
     padding: 10px;
     padding-top: 5px;
 }   
+
+/*
+ ************************************PLANNER STYLES************************************************
+ */
+
+.information{
+    display: flex;
+    height: 110px;
+    justify-content: space-between;
+}
+
+.info-element{
+    display: flex;
+    flex-basis: 35%;
+    align-items: center;
+    justify-content: space-evenly;
+    font-family: 'Krub', "Helvetica Neue", sans-serif;
+}
+
+.color-block{
+    height: 55px;
+    width: 40%;
+}
 
 table{
     width: 100%;
