@@ -25,7 +25,7 @@ export class DailyPlannerComponent implements OnInit {
     },
     {
       name: "Paul",
-      busyTimes: ["7:00 AM", "9:00 AM", "1:30 PM", "3:00 PM", "3:30PM"]
+      busyTimes: ["7:00 AM", "9:00 AM", "1:30 PM", "3:00 PM", "3:30 PM"]
     },
     {
       name: "Alex",
