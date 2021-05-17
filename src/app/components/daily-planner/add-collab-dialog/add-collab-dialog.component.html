@@ -5,7 +5,7 @@
     <mat-label>Name</mat-label>
     <input matInput [(ngModel)]="name" (ngModelChange)="verifyName()">
   </mat-form-field>
-  <label style="color: rgb(255, 55, 55); margin-left: 5px;" *ngIf="error">Collaborator already exists.</label>
+  <label style="color: rgb(255, 55, 55); margin-left: 5px; display: block;" *ngIf="error">Collaborator already exists.</label>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>

@@ -18,6 +18,7 @@ export class AddCollabDialogComponent implements OnInit {
   }
 
   verifyName(): void{
+    console.log(this.data.collaborators);
     this.error = this.data.collaborators.has(this.name);
   }
 
@@ -25,5 +26,4 @@ export class AddCollabDialogComponent implements OnInit {
     this.name = "";
     this.dialogRef.close();
   }
-
 }

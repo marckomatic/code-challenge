@@ -11,6 +11,7 @@ import { ResultDialogComponent } from './components/daily-planner/result-dialog/
 import { FormsModule } from '@angular/forms';
 import { AddCollabDialogComponent } from './components/daily-planner/add-collab-dialog/add-collab-dialog.component';
 import { RemoveCollabDialogComponent } from './components/daily-planner/remove-collab-dialog/remove-collab-dialog.component';
+import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { RemoveCollabDialogComponent } from './components/daily-planner/remove-c
     DailyPlannerComponent,
     ResultDialogComponent,
     AddCollabDialogComponent,
-    RemoveCollabDialogComponent
+    RemoveCollabDialogComponent,
+    AlertDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -1,15 +1,25 @@
-
-.container{
+.container {
     display: flex;
     justify-content: space-between;
 }
 
-.input{
+.input {
     flex-basis: 48%;
 }
 
-textarea{
+textarea {
     height: 150px;
     white-space: pre-wrap;
     overflow-wrap: break-word;
+}
+
+/* On screens that are 900px or less*/
+
+@media screen and (max-width: 1100px) {
+    .container {
+        flex-wrap: wrap;
+    }
+    .input {
+        flex-basis: 100%;
+    }
 }

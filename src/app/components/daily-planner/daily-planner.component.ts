@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CollaboratorSchedule } from 'src/app/models/CollaboratorSchedule';
 import { ScheduleManagerService, defineTimeLabels } from 'src/app/services/schedule-manager.service';
+import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
 import { AddCollabDialogComponent } from './add-collab-dialog/add-collab-dialog.component';
 import { RemoveCollabDialogComponent } from './remove-collab-dialog/remove-collab-dialog.component';
 import { ResultDialogComponent } from './result-dialog/result-dialog.component';
@@ -12,10 +13,10 @@ import { ResultDialogComponent } from './result-dialog/result-dialog.component';
   styleUrls: ['./daily-planner.component.css']
 })
 export class DailyPlannerComponent implements OnInit {
-  //Labels for office hours time intervals 
-  officeHours: string[] = [] as string[];
+  //Labels for hours time intervals 
+  hours: string[] = [] as string[];
   lunchHours: string[] = [] as string[];
-
+  isFullDay: boolean = false; //Indicates if the schedule show all the day hours.
   //All the collaborators with their busy times, it is binded to the table in view.
   collaborators: CollaboratorSchedule[] = [
     {
@@ -48,7 +49,7 @@ export class DailyPlannerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.officeHours = Array.from(this._scheduleManager.getTimeLabels())
+    this.hours = Array.from(defineTimeLabels(8, 17));
   }
 
   /***
@@ -72,9 +73,6 @@ export class DailyPlannerComponent implements OnInit {
         input: input.split("},").join("},\n"),
         output: output.split("},").join("},\n")
       }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
     });
   }
 
@@ -116,6 +114,24 @@ export class DailyPlannerComponent implements OnInit {
     });
   }
 
+  /**
+   * this function is called when the slide toggle is changed, it changes the hours of the schedule
+   * from Office Hours to full day hours
+   */
+  changeToggleFullDay() {
+    console.log("Holi");
+    if (this.isFullDay) {
+      //Lauch an allert is inside office hours, if not, launch a alert dialog.
+      const dialogRef = this.dialog.open(AlertDialogComponent, {
+        width: '250px',
+        data: { message: "The meets assigned in hours that aren't in office hours will be ignored into the challenge run. " }
+      });
+      this.hours = Array.from(defineTimeLabels(0, 24));
+    } else {
+      this.hours = Array.from(defineTimeLabels(8, 17));
+    }
+  }
+
   /***
    * ***********************FUNTIONS FOR THE PLANNER SCHEDULE******************************************
    */
@@ -144,6 +160,13 @@ export class DailyPlannerComponent implements OnInit {
     if (containsThisTime) {
       (collaborator.busyTimes as string[]).splice(index, 1);
     } else {
+      //Verify if time is inside office hours, if not, launch a alert dialog.
+      if (!this._scheduleManager.getTimeLabels().has(time)) {
+        const dialogRef = this.dialog.open(AlertDialogComponent, {
+          width: '250px',
+          data: { message: "You are assigning a meet into a time that is not in office hours, it doesn't will be considered for the challange. " }
+        });
+      }
       (collaborator.busyTimes as string[]).push(time);
     }
   }
