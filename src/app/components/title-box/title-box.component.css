@@ -1,4 +1,4 @@
-.background{
+.background {
     background-image: url('../../../assets/office.jpg');
     width: 100%;
     background-position: center;
@@ -8,7 +8,7 @@
     padding-bottom: 45px;
 }
 
-#note{
+#note {
     background-color: #424242;
     margin: 0px auto;
     width: 60%;
@@ -19,7 +19,7 @@
     padding-bottom: 10px;
 }
 
-#content-note{
+#content-note {
     margin: 0px auto;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -29,11 +29,22 @@
     color: white;
 }
 
-#content-note h1{
+#content-note h1 {
     font-family: 'Architects Daughter', cursive;
 }
 
-#content-note p{
+#content-note p {
     font-family: 'Architects Daughter', cursive;
     font-size: 20px;
+}
+
+@media screen and (max-width: 500px) {
+    #content-note h1 {
+        font-family: 'Architects Daughter', cursive;
+        font-size: 25px;
+    }
+    #content-note p {
+        font-family: 'Architects Daughter', cursive;
+        font-size: 16px;
+    }
 }

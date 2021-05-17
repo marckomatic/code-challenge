@@ -132,7 +132,7 @@ table {
  *******************************SOME RESPONSIVE STYLES************************************
  */
 
-/* On screens that are 900px or less*/
+/* On screens that are 700px or less*/
 
 @media screen and (max-width: 700px) {
     table {
@@ -144,10 +144,6 @@ table {
 /* On screens that are 500px or less*/
 
 @media screen and (max-width: 700px) {
-    table {
-        width: 270%;
-        border-collapse: collapse;
-    }
     .information {
         flex-wrap: wrap;
         justify-content: center;
@@ -157,5 +153,25 @@ table {
     .info-element {
         flex-basis: 80%;
     }
-
+    table {
+        width: 270%;
+        border-collapse: collapse;
+    }
 }
+
+@media screen and (max-width: 700px) {
+    table {
+        width: 170%;
+        border-collapse: collapse;
+    }
+}
+
+/* On screens that are 500px or less*/
+
+@media screen and (max-width: 500px) {
+
+    .title h1{
+        font-size: 23px;
+    }
+}
+

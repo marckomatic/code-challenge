@@ -7,6 +7,7 @@ footer{
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .footer-element{
@@ -17,4 +18,18 @@ footer{
 .footer-element a{
     text-decoration: none;
     color: lightblue;
+}
+
+@media screen and (max-width: 500px) {
+    footer{
+        justify-content: center;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    
+    .footer-element{
+        flex-basis: 60%;
+        text-align: center;
+    }
+    
 }
