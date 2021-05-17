@@ -1,5 +1,9 @@
+<div class="title">
+    <h1>Meet Times For Collaborators</h1>
+</div>
+
 <div id="planner-toolbar">
-    <button mat-icon-button class="example-icon" aria-label="Add Collab" matTooltip='Add collaborator' color="primary"
+    <button mat-icon-button class="example-icon" aria-label="Add Collab" matTooltip='Add Collaborator' color="primary"
         (click)="addCollaborator()">
         <mat-icon>person_add</mat-icon>
     </button>
@@ -8,13 +12,14 @@
         color="primary" (click)="removeCollaborator()">
         <mat-icon>person_remove</mat-icon>
     </button>
-    
+
     <span class="toolbar-spacer"></span>
 
     <mat-slide-toggle class="slider" matTooltip='Show the full day in Schedule Manager'
         (change)="changeToggleFullDay()" [(ngModel)]="isFullDay" >Full Day</mat-slide-toggle>
     
-    <button mat-mini-fab color="primary" (click)="runChallenge()">Run</button>
+    <button mat-mini-fab color="primary" (click)="runChallenge()" 
+        matTooltip='Run the Challenge'>Run</button>
 </div>
 
 <div id="planner-container">    

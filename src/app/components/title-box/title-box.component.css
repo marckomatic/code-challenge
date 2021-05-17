@@ -1,0 +1,39 @@
+.background{
+    background-image: url('../../../assets/office.jpg');
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    align-items: center;
+    padding-top: 45px;
+    padding-bottom: 45px;
+}
+
+#note{
+    background-color: #424242;
+    margin: 0px auto;
+    width: 60%;
+    height: 310px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#content-note{
+    margin: 0px auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 80%;
+    height: 265px;
+    overflow-y: scroll;
+    color: white;
+}
+
+#content-note h1{
+    font-family: 'Architects Daughter', cursive;
+}
+
+#content-note p{
+    font-family: 'Architects Daughter', cursive;
+    font-size: 20px;
+}

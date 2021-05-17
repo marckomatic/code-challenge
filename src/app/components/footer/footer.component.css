@@ -1,0 +1,20 @@
+footer{
+    margin-top: 35px;
+    width: 100%;
+    height: 80px;
+    color: white;
+    background-color: #424242;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.footer-element{
+    font-family: 'Krub', "Helvetica Neue", sans-serif;
+    font-size: 16px;
+}
+
+.footer-element a{
+    text-decoration: none;
+    color: lightblue;
+}

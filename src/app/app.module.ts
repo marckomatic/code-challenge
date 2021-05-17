@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 import { AddCollabDialogComponent } from './components/daily-planner/add-collab-dialog/add-collab-dialog.component';
 import { RemoveCollabDialogComponent } from './components/daily-planner/remove-collab-dialog/remove-collab-dialog.component';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
+import { TitleBoxComponent } from './components/title-box/title-box.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.com
     ResultDialogComponent,
     AddCollabDialogComponent,
     RemoveCollabDialogComponent,
-    AlertDialogComponent
+    AlertDialogComponent,
+    TitleBoxComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
